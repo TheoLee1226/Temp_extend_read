@@ -2,7 +2,6 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 ### Google Drive ###
-*desktop.ini
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
