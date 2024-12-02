@@ -27,13 +27,14 @@ def plot_data(headers, data, selected_columns):
     plt.show()
 
 def save_selected_data(headers, data, selected_columns, filename):
-    selected_headers = [headers[col] for col in selected_columns]
-    selected_data = [[row[col] for col in selected_columns] for row in data]
+    selected_headers = ["Time"] + [ headers[col] for col in selected_columns]
+    selected_data = [[row[0]] + [row[col] for col in selected_columns] for row in data]
     
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(selected_headers)
         writer.writerows(selected_data)
+
     print(f"數據已保存到 {filename}")
 
 def select_file_and_plot():
@@ -57,7 +58,7 @@ def show_column_selection(headers, data):
     listbox.pack(pady=10, padx=10, fill="both", expand=True)
    
     for i, header in enumerate(headers):
-        if i == 0:
+        if header == "Time":
             continue
         listbox.insert(END, header)
 
@@ -73,11 +74,23 @@ def show_column_selection(headers, data):
         if save_filename:
             save_selected_data(headers, data, selected_columns, save_filename)
 
-    plot_button = Button(selection_window, text="繪製圖表", command=on_plot)
-    plot_button.pack(pady=10)
+    def select_all():
+        listbox.select_set(0, END)
+    
+    def deselect_all():
+        listbox.select_clear(0, END)
 
-    save_button = Button(selection_window, text="保存選擇的數據", command=on_save)
-    save_button.pack(pady=10)
+    select_all_button = Button(selection_window, text="全選", command=select_all)
+    select_all_button.pack(pady=5)
+
+    deselect_all_button = Button(selection_window, text="全不選", command=deselect_all)
+    deselect_all_button.pack(pady=5)
+
+    plot_button = Button(selection_window, text="繪製圖表", command=on_plot)
+    plot_button.pack(pady=5)
+
+    save_button = Button(selection_window, text="匯出選擇的數據", command=on_save)
+    save_button.pack(pady=5)
 
     selection_window.mainloop()
 
