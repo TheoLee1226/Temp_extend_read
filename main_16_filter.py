@@ -40,7 +40,7 @@ def read_and_process_data():
             for i in range(16):
                 temps[i].append(float(serial_values[i + 1]))
             
-            print(f'{relative_time}, ' + ', '.join([f'{serial_values[i+1]}' for i in range(16)]))
+            print(f'{relative_time:.2f}, ' + ', '.join([f'{serial_values[i+1]}' for i in range(16)]))
 
         except ValueError as e:
             print(f"數據轉換錯誤: {e}")
@@ -80,7 +80,7 @@ def create_csv_with_timestamp():
             os.makedirs(date_folder)  
         
         gitignore_path = os.path.join(date_folder, '.gitignore')
-        
+
         if not os.path.exists(gitignore_path):
             with open(gitignore_path, 'w') as gitignore:
                 gitignore.write("*")

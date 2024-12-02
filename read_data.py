@@ -1,6 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
-from tkinter import Tk, filedialog, Button, Label, Listbox, MULTIPLE, Scrollbar, VERTICAL, END
+from tkinter import Tk, filedialog, Button, Label, Listbox, MULTIPLE, Scrollbar, VERTICAL, END, Entry
 import tkinter as tk
 
 def read_csv(filename):
@@ -25,6 +25,16 @@ def plot_data(headers, data, selected_columns):
     plt.legend()
     plt.title('Selected Data')
     plt.show()
+
+def save_selected_data(headers, data, selected_columns, filename):
+    selected_headers = [headers[col] for col in selected_columns]
+    selected_data = [[row[col] for col in selected_columns] for row in data]
+    
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(selected_headers)
+        writer.writerows(selected_data)
+    print(f"數據已保存到 {filename}")
 
 def select_file_and_plot():
     filename = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
@@ -56,8 +66,18 @@ def show_column_selection(headers, data):
         selected_columns = [int(index) + 1 for index in selected_indices]
         plot_data(headers, data, selected_columns)
 
+    def on_save():
+        selected_indices = listbox.curselection()
+        selected_columns = [int(index) + 1 for index in selected_indices]
+        save_filename = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
+        if save_filename:
+            save_selected_data(headers, data, selected_columns, save_filename)
+
     plot_button = Button(selection_window, text="繪製圖表", command=on_plot)
     plot_button.pack(pady=10)
+
+    save_button = Button(selection_window, text="保存選擇的數據", command=on_save)
+    save_button.pack(pady=10)
 
     selection_window.mainloop()
 
