@@ -12,6 +12,6 @@ def delete_files_with_name(directory, filename):
                     print(f"Error deleting {file_path}: {e}")
 
 if __name__ == "__main__":
-    directory = os.getcwd()  # 當前目錄
-    filename = "desktop.ini"  # 替換為你要刪除的文件名稱
+    directory = os.getcwd()
+    filename = "desktop.ini"  
     delete_files_with_name(directory, filename)

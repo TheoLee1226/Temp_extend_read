@@ -1,3 +1,5 @@
+# Theo Lee
+
 import serial
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -20,6 +22,7 @@ def read_and_process_data():
     global time_signal_count, start_time
     
     line = ser.readline().decode('utf-8').strip()
+    print(line)
     serial_values = line.split(',')
     
     if len(serial_values) == 17:  # 確保所有17個值都存在 ( ardiuno在一開始接收的時候需要初始畫而遺漏訊號 ) 
@@ -40,7 +43,7 @@ def read_and_process_data():
             for i in range(16):
                 temps[i].append(float(serial_values[i + 1]))
             
-            print(f'{relative_time:.2f}, ' + ', '.join([f'{serial_values[i+1]}' for i in range(16)]))
+            # print(f'{relative_time:.2f}, ' + ', '.join([f'{serial_values[i+1]}' for i in range(16)]))
 
         except ValueError as e:
             print(f"數據轉換錯誤: {e}")
@@ -60,8 +63,7 @@ def update_plot(frame):
         plt.cla()
         for i in range(16):
             plt.plot(time_data, temps[i], label=f'Temp{i+1}')
-        for i in range(16):
-            plt.plot(time_data, temps_smooth[i], label=f'Temp{i+1}_smooth')
+            plt.plot(time_data, temps_smooth[i], label=f'Temp{i+1}_smooth', linestyle='--' , color=plt.gca().lines[-1].get_color())
         plt.xlabel('Time(s)')
         plt.ylabel('Temperature(C)')
 
