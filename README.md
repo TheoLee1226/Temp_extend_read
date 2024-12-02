@@ -10,3 +10,7 @@ One MCP9600 with 2 MUX 2 K type
 ### main_16_smooth
 
 with Gaussian filter
+
+### read_data
+
+read CSV save form main
