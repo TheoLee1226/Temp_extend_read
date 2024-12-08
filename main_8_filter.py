@@ -9,7 +9,7 @@ import os
 
 from scipy.ndimage import gaussian_filter1d
 
-ser = serial.Serial('COM4', 115200)
+ser = serial.Serial('COM6', 115200)
 
 temps = [[] for _ in range(8)]
 temps_smooth = [[] for _ in range(8)]
