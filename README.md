@@ -2,6 +2,14 @@
 
 8 channel of MCP6900
 
+### main_8_smooth
+
+with Gaussian filter
+
+### main_8_filter_local_time
+
+with Gaussian filter and use local time of python.
+
 ### main_16
 
 8 channel of MCP6900 with 8 MUX
@@ -14,3 +22,4 @@ with Gaussian filter
 ### read_data
 
 read CSV save form main
+
